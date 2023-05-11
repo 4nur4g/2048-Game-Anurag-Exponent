@@ -7,13 +7,13 @@ const Tile = (props) => {
   const StyledPaperMaterial = styled(PaperMaterial)((props) => ({
     width: '55px',
     height: '55px',
-    margin: 'auto',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginInline: '5px',
-    marginBlock: '5px',
+    marginInline: '7px',
+    marginBlock: '7px',
     fontSize: '28px',
+    borderRadius: '10px',
     background: `${getColors(props.children)}`,
     color: props.children === 2 || props.children === 4 ? '#645B52' : '#F7F4EF',
   }));
