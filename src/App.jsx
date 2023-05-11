@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import Tile from "./components/Tile";
 import {Card, Box, Button, Stack, Chip, FormControl, InputLabel, Select, MenuItem} from "@mui/material";
 import { deepCopyArray } from "../../Assignments/2048-Anurag/src/utils/util";
-import { addNumber } from "./Utils/addNumber";
 import GameBox from "./components/GameBox.jsx";
 import styled from "@emotion/styled";
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
@@ -50,7 +49,9 @@ function App() {
   };
 
   const handleKeyDown = (event) => {
-    event.preventDefault();
+    if ([UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW].includes(event.keyCode)) {
+      event.preventDefault();
+    }
     if (gameOver) {
       return;
     }
@@ -96,17 +97,54 @@ function App() {
     };
   }, [data]);
 
+  const addNumber = (newGrid) => {
+    // Create an array called emptySpots and assign it an empty array
+    let emptySpots = [];
+    // Loop through each row of newGrid using a for loop with a variable i
+    for (let i = 0; i < gridDimen ; i++) {
+      // Loop through each column of newGrid using a for loop with a variable j
+      for (let j = 0; j < gridDimen ; j++) {
+        // Check if the value at newGrid[i][j] is equal to 0, which means it is empty
+        if (newGrid[i][j] === 0) {
+          // Push an array with i and j as elements to emptySpots
+          emptySpots.push([i, j]);
+        }
+      }
+    }
+    // Check if emptySpots has any elements, which means there are empty spots on the grid
+    if (emptySpots.length > 0) {
+      console.log('Empty spots', emptySpots);
+      // Pick a random element from emptySpots using Math.random and Math.floor and assign it to a variable called randomSpot
+      let randomSpot = emptySpots[Math.floor(Math.random() * emptySpots.length)];
+      console.log('Random spot', randomSpot);
+      // Assign newGrid[randomSpot[0]][randomSpot[1]] a random value of either 2 or 4 with a 50% chance each using Math.random
+      newGrid[randomSpot[0]][randomSpot[1]] = Math.random() > 0.5 ? 2 : 4;
+
+      console.log('new grid', newGrid);
+    } else {
+      // If emptySpots has no elements, which means the grid is full, call checkIfGameOver function to see if the game is over
+      let gameOverr = checkIfGameOver();
+      // If gameOverr is true, alert 'game over' and set gameOver to true
+      if (gameOverr) {
+        alert('game over');
+        // setGameOver(true);
+      }
+      // setGameOver(true);
+    }
+  };
+
+
   const swipeLeft = (dummy) => {
     // console.log('swipe left');
     let oldGrid = data;
     let newArray = deepCopyArray(data);
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < gridDimen; i++) {
       let b = newArray[i];
       let slow = 0;
       let fast = 1;
-      while (slow < 4) {
-        if (fast === 4) {
+      while (slow < gridDimen) {
+        if (fast === gridDimen) {
           fast = slow + 1;
           slow++;
           continue;
@@ -150,7 +188,7 @@ function App() {
     let oldData = data;
     let newArray = deepCopyArray(data);
 
-    for (let i = 3; i >= 0; i--) {
+    for (let i = (gridDimen - 1); i >= 0; i--) {
       let b = newArray[i];
       let slow = b.length - 1;
       let fast = slow - 1;
@@ -196,7 +234,7 @@ function App() {
     // console.log(data);
     let b = deepCopyArray(data);
     let oldData = JSON.parse(JSON.stringify(data));
-    for (let i = 3; i >= 0; i--) {
+    for (let i = (gridDimen - 1); i >= 0; i--) {
       let slow = b.length - 1;
       let fast = slow - 1;
       while (slow > 0) {
@@ -240,11 +278,11 @@ function App() {
     // console.log('swipe up');
     let b = deepCopyArray(data);
     let oldData = JSON.parse(JSON.stringify(data));
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < gridDimen; i++) {
       let slow = 0;
       let fast = 1;
-      while (slow < 4) {
-        if (fast === 4) {
+      while (slow < gridDimen) {
+        if (fast === gridDimen) {
           fast = slow + 1;
           slow++;
           continue;
