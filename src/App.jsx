@@ -1,10 +1,19 @@
 import { createGrid } from "./Utils/Helpers/grid.js";
 import { useState, useEffect } from "react";
 import Tile from "./components/Tile";
-import { Card, Box, Button } from "@mui/material";
+import {Card, Box, Button, Stack, Chip} from "@mui/material";
 import { deepCopyArray } from "../../Assignments/2048-Anurag/src/utils/util";
 import { addNumber } from "./Utils/addNumber";
 import GameBox from "./components/GameBox.jsx";
+import styled from "@emotion/styled";
+import SportsScoreIcon from '@mui/icons-material/SportsScore';
+
+const StyledButton = styled(Button)({
+    borderRadius: '10px',
+  marginBottom: '5px',
+  color: 'rosybrown',
+  borderColor: 'rosybrown',
+})
 
 const UP_ARROW = 38;
 const DOWN_ARROW = 40;
@@ -14,6 +23,7 @@ const RIGHT_ARROW = 39;
 function App() {
   const [gridDimen, setGridDimen] = useState(4);
   const [gameOver, setGameOver] = useState(false);
+  const [score,setScore] = useState(0);
   console.log(gameOver);
   const zeroGrid = createGrid(gridDimen);
 
@@ -306,9 +316,13 @@ function App() {
     <>
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: '100vh' }}>
         <Card sx={{ padding: "10px", borderRadius: "10px", maxWidth: 'fit-content'}}>
-          <Button variant="outlined" onClick={resetGame}>
+          <Stack direction = "row" spacing = {2} >
+          <StyledButton variant="outlined" onClick={resetGame}>
             Reset Game
-          </Button>
+          </StyledButton>
+
+          <Chip icon={<SportsScoreIcon />} label={`Score:${score}`} variant="outlined" />
+          </Stack>
           {data.map((row, oneIndex) => {
             return (
               <GameBox key={oneIndex}>
