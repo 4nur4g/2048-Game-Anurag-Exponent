@@ -1,7 +1,7 @@
 import { createGrid } from "./Utils/Helpers/grid.js";
 import { useState, useEffect } from "react";
 import Tile from "./components/Tile";
-import {Card, Box, Button, Stack, Chip} from "@mui/material";
+import {Card, Box, Button, Stack, Chip, FormControl, InputLabel, Select, MenuItem} from "@mui/material";
 import { deepCopyArray } from "../../Assignments/2048-Anurag/src/utils/util";
 import { addNumber } from "./Utils/addNumber";
 import GameBox from "./components/GameBox.jsx";
@@ -312,6 +312,10 @@ function App() {
     return true;
   };
 
+  const selectionHandler = (event) => {
+    setGridDimen(event.target.value);
+  };
+
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: '100vh' }}>
@@ -321,7 +325,21 @@ function App() {
             Reset Game
           </StyledButton>
 
-          <Chip icon={<SportsScoreIcon />} label={`Score:${score}`} variant="outlined" />
+          <Chip sx={{height:"36px",  fontSize: "26px", color: "#645B52"}} icon={<SportsScoreIcon />} label={`${score}`} variant="outlined" />
+            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+              <InputLabel id="demo-select-small-label">Dimension</InputLabel>
+              <Select
+                  labelId="demo-select-small-label"
+                  id="demo-select-small"
+                  value={gridDimen}
+                  label="Dimensions"
+                  onChange={(event)=>selectionHandler(event)}
+              >
+                <MenuItem value={4}>4X4</MenuItem>
+                <MenuItem value={5}>5X5</MenuItem>
+                <MenuItem value={6}>6X6</MenuItem>
+              </Select>
+            </FormControl>
           </Stack>
           {data.map((row, oneIndex) => {
             return (
