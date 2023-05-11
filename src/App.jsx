@@ -303,28 +303,24 @@ function App() {
   };
 
   return (
-    <Box
-      sx={{
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Button onClick={resetGame}>Reset Game</Button>
-      <Card sx={{ padding: "10px", borderRadius: "10px"}}>
-        {data.map((row, oneIndex) => {
-          return (
-            <GameBox key={oneIndex}>
-              {row.map((digit, index) => (
-                <Tile key={index}>{digit}</Tile>
-              ))}
-            </GameBox>
-          );
-        })}
-      </Card>
-    </Box>
+    <>
+      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: '100vh' }}>
+        <Card sx={{ padding: "10px", borderRadius: "10px", maxWidth: 'fit-content'}}>
+          <Button variant="outlined" onClick={resetGame}>
+            Reset Game
+          </Button>
+          {data.map((row, oneIndex) => {
+            return (
+              <GameBox key={oneIndex}>
+                {row.map((digit, index) => (
+                  <Tile key={index}>{digit}</Tile>
+                ))}
+              </GameBox>
+            );
+          })}
+        </Card>
+      </Box>
+    </>
   );
 }
 
