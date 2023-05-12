@@ -367,7 +367,7 @@ function App() {
     <>
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: '100vh' }}>
         <Card sx={{ padding: "10px", borderRadius: "10px", maxWidth: 'fit-content'}}>
-          <Stack direction = "row" spacing = {2} >
+          <Stack direction = "row" spacing = {2}  justifyContent="center"  >
           <StyledButton variant="outlined" onClick={resetGame}>
             Reset Game
           </StyledButton>
