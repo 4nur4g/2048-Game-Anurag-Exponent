@@ -1,6 +1,6 @@
-
 import MaterialBox from "@mui/material/Box";
 import styled from "@emotion/styled";
+import {Button} from "@mui/material";
 
 const Box = styled(MaterialBox)({
     display: 'flex',
@@ -10,9 +10,11 @@ const Box = styled(MaterialBox)({
 
 const GameBox = (props) => {
     return (
-        <Box>
-            {props.children}
-        </Box>
+        <>
+            <Box>
+                {props.children}
+            </Box>
+        </>
     )
 }
 
