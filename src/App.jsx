@@ -89,25 +89,24 @@ function App() {
         }
         switch (event.keyCode) {
             case UP_ARROW:
-                // alert("up");
-                // console.table(data);
+                // 
                 swipeUp();
-                // console.table(data);
+                // 
                 break;
             case DOWN_ARROW:
-                // console.table(data);
+                // 
                 swipeDown();
-                // console.table(data);
+                // 
                 break;
             case LEFT_ARROW:
-                // console.table(data);
+                // 
                 swipeLeft();
-                // console.table(data);
+                // 
                 break;
             case RIGHT_ARROW:
-                // console.table(data);
+                // 
                 swipeRight();
-                // console.table(data);
+                // 
                 break;
             default:
                 // do nothing if any other key is pressed
@@ -145,21 +144,21 @@ function App() {
         }
         // Check if emptySpots has any elements, which means there are empty spots on the grid
         if (emptySpots.length > 0) {
-            console.log('Empty spots', emptySpots);
+            
             // Pick a random element from emptySpots using Math.random and Math.floor and assign it to a variable called randomSpot
             let randomSpot = emptySpots[Math.floor(Math.random() * emptySpots.length)];
-            console.log('Random spot', randomSpot);
+            
             // Assign newGrid[randomSpot[0]][randomSpot[1]] a random value of either 2 or 4 with a 50% chance each using Math.random
             newGrid[randomSpot[0]][randomSpot[1]] = Math.random() > 0.5 ? 2 : 4;
 
-            console.log('new grid', newGrid);
+            
         } else {
             setGameOver(true);
         }
     };
 
     const swipeLeft = (dummy) => {
-        // console.log('swipe left');
+        // 
         let oldGrid = data;
         let newArray = deepCopyArray(data);
 
@@ -201,19 +200,19 @@ function App() {
         }
         if (JSON.stringify(oldGrid) !== JSON.stringify(newArray)) {
             addNumber(newArray);
-            console.log("adding number to new array, the result is", newArray);
+            
         }
         if (dummy) {
             return newArray;
         } else {
-            console.log("setting data");
+            
             setData(newArray);
-            console.log("The data should be equal to new array", data, newArray);
+            
         }
     };
 
     const swipeRight = (dummy) => {
-        // console.log('swipe right');
+        // 
         let oldData = data;
         let newArray = deepCopyArray(data);
 
@@ -264,8 +263,8 @@ function App() {
     };
 
     const swipeDown = (dummy) => {
-        // console.log('swipe down');
-        // console.log(data);
+        // 
+        // 
         let b = deepCopyArray(data);
         let oldData = JSON.parse(JSON.stringify(data));
         for (let i = (gridDimen - 1); i >= 0; i--) {
@@ -316,7 +315,7 @@ function App() {
     };
 
     const swipeUp = (dummy) => {
-        // console.log('swipe up');
+        // 
         let b = deepCopyArray(data);
         let oldData = JSON.parse(JSON.stringify(data));
         for (let i = 0; i < gridDimen; i++) {
