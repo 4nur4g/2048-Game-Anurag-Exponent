@@ -1,5 +1,5 @@
 import { createGrid } from "./Utils/Helpers/grid.js";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Tile from "./components/Tile";
 import {Card, Box, Button, Stack, Chip, FormControl, InputLabel, Select, MenuItem} from "@mui/material";
 import { deepCopyArray } from "../../Assignments/2048-Anurag/src/utils/util";
@@ -23,7 +23,7 @@ function App() {
   const [gridDimen, setGridDimen] = useState(4);
   const [gameOver, setGameOver] = useState(false);
   const [score,setScore] = useState(0);
-  console.log(gameOver);
+  const run = useRef(0);
   const zeroGrid = createGrid(gridDimen);
 
   const [data, setData] = useState(zeroGrid);
@@ -38,7 +38,16 @@ function App() {
   useEffect(() => {
     initialize();
     // eslint-disable-next-line
+    // resetGame()
   }, []);
+
+  useEffect(() => {
+      if (run.current <2) {
+        run.current += 1;
+      }else {
+          resetGame()
+      }
+  }, [gridDimen]);
 
   // Reset
   const resetGame = () => {
