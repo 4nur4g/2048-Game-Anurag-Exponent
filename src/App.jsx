@@ -19,6 +19,7 @@ import GameBox from "./components/GameBox.jsx";
 import styled from "@emotion/styled";
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import GameOverOverlay from "./components/GameOverOverlay.jsx";
+import GameWonOverlay from "./components/GameWonOverlay.jsx";
 
 
 const ResetGame = styled(Button)(({theme}) => ({
@@ -28,6 +29,7 @@ const ResetGame = styled(Button)(({theme}) => ({
     '&:hover': {
         backgroundColor: "#FFEBB4",
     },
+    marginBottom: "10px"
 
 }));
 
@@ -38,10 +40,12 @@ const RIGHT_ARROW = 39;
 
 function App() {
     const [gridDimen, setGridDimen] = useState(4);
-    const [gameOver, setGameOver] = useState(true);
+    const [gameOver, setGameOver] = useState(false);
+    const [gameWon,setGameWon] = useState(false);
     const [score, setScore] = useState(0);
     const run = useRef(0);
     const zeroGrid = createGrid(gridDimen);
+    const tileToWin = 2048
 
     const [data, setData] = useState(zeroGrid);
 
@@ -69,6 +73,7 @@ function App() {
     // Reset
     const resetGame = () => {
         setGameOver(false);
+        setGameWon(false)
         setScore(0)
         addNumber(zeroGrid);
         addNumber(zeroGrid);
@@ -149,17 +154,9 @@ function App() {
 
             console.log('new grid', newGrid);
         } else {
-            // If emptySpots has no elements, which means the grid is full, call checkIfGameOver function to see if the game is over
-            let gameOverr = checkIfGameOver();
-            // If gameOverr is true, alert 'game over' and set gameOver to true
-            if (gameOverr) {
-                alert('game over');
-                // setGameOver(true);
-            }
-            // setGameOver(true);
+            setGameOver(true);
         }
     };
-
 
     const swipeLeft = (dummy) => {
         // console.log('swipe left');
@@ -188,6 +185,9 @@ function App() {
                     if (b[slow] === b[fast]) {
                         b[slow] = b[slow] + b[fast];
                         const addToScore = b[slow]
+                        if (addToScore === tileToWin) {
+                            setGameWon(true)
+                        }
                         setScore(score + addToScore)
                         b[fast] = 0;
                         fast = slow + 1;
@@ -239,6 +239,9 @@ function App() {
                     if (b[slow] === b[fast]) {
                         b[slow] = b[slow] + b[fast];
                         const addToScore = b[slow]
+                        if (addToScore === tileToWin) {
+                            setGameWon(true)
+                        }
                         setScore(score + addToScore)
                         b[fast] = 0;
                         fast = slow - 1;
@@ -287,6 +290,9 @@ function App() {
                         b[slow][i] = b[slow][i] + b[fast][i];
 
                         const addToScore = b[slow][i]
+                        if (addToScore === tileToWin) {
+                            setGameWon(true)
+                        }
                         setScore(score + addToScore)
 
                         b[fast][i] = 0;
@@ -335,6 +341,10 @@ function App() {
                         b[slow][i] = b[slow][i] + b[fast][i];
 
                         const addToScore = b[slow][i]
+
+                        if (addToScore === tileToWin) {
+                            setGameWon(true)
+                        }
                         setScore(score + addToScore)
 
                         b[fast][i] = 0;
@@ -358,8 +368,6 @@ function App() {
     };
 
     const checkIfGameOver = () => {
-        // console.log('CHECKING GAME OVER');
-        // let original = deepCopyArray(data);
         let checker = swipeLeft(true);
 
         if (JSON.stringify(data) !== JSON.stringify(checker)) {
@@ -367,9 +375,7 @@ function App() {
         }
 
         let checker2 = swipeDown(true);
-        // console.log('CHECKER DOWN');
-        // console.table(data);
-        // console.table(checker2);
+
         if (JSON.stringify(data) !== JSON.stringify(checker2)) {
             return false;
         }
@@ -409,6 +415,7 @@ function App() {
                     position: "relative",
                     background: "#FFF8D6"
                 }}>
+                    {gameWon && <GameWonOverlay buttonHandler={resetGame}/>}
                     {gameOver && <GameOverOverlay buttonHandler={resetGame}/>}
                     <Stack direction="row" spacing={2} justifyContent="center">
                         <ResetGame variant="contained" onClick={resetGame}>

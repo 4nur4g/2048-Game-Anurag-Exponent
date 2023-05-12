@@ -11,7 +11,7 @@ const TryAgain = styled(Button)(({ theme }) => ({
 
 }));
 
-const GameOverOverlay = (props) => {
+const GameWonOverlay = (props) => {
 
     return (<>
         <Card sx={{
@@ -26,12 +26,12 @@ const GameOverOverlay = (props) => {
             color: "#643843",
             flexDirection: "column"
         }}>
-            <Typography variant="h4" sx={{textAlign: "center", fontWeight: "bold", display: "block",marginBottom:"5px"}}>
-                Game Over
+            <Typography variant="h4" sx={{textAlign: "center", fontWeight: "bold", display: "block", marginBottom:"5px"}}>
+                Congrats! You Won!
             </Typography>
-            <TryAgain onClick={props.buttonHandler} variant="contained">Try Again</TryAgain>
+            <TryAgain onClick={props.buttonHandler} variant="contained">Play Again!</TryAgain>
         </Card>
     </>)
 }
 
-export default GameOverOverlay
+export default GameWonOverlay
