@@ -15,3 +15,5 @@ export const deepCopyArray = (array) => {
     return array;
   }
 };
+
+export default deepCopyArray;

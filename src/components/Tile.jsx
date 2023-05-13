@@ -1,7 +1,6 @@
 import PaperMaterial from '@mui/material/Paper';
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-import { getColors } from '../../../Assignments/2048-Anurag/src/utils/util';
+import getColors from '../Utils/Helpers/tileColor';
 
 const Tile = (props) => {
   const StyledPaperMaterial = styled(PaperMaterial)((props) => ({

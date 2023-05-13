@@ -14,12 +14,13 @@ import {
   Typography,
   Paper,
 } from '@mui/material';
-import { deepCopyArray } from '../../Assignments/2048-Anurag/src/utils/util';
+// import { deepCopyArray } from '../../Assignments/2048-Anurag/src/utils/util';
 import GameBox from './components/GameBox.jsx';
 import styled from '@emotion/styled';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import GameOverOverlay from './components/GameOverOverlay.jsx';
 import GameWonOverlay from './components/GameWonOverlay.jsx';
+import deepCopyArray from './Utils/Helpers/deepCopy.js';
 
 const ResetGame = styled(Button)(({ theme }) => ({
   color: '#645B52',

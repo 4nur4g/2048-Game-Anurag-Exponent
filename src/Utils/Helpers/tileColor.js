@@ -1,4 +1,4 @@
-export const getColors = (num) => {
+const getColors = (num) => {
   switch (num) {
     case 2:
       return '#EBDCD0';
@@ -26,3 +26,5 @@ export const getColors = (num) => {
       return '#C2B3A3';
   }
 };
+
+export default getColors;
