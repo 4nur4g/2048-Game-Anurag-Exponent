@@ -2,6 +2,8 @@
 
 This is a react project that uses functional programming to create the 2048 game.
 
+You can see the final outcome by clicking on this [link](https://4nur4g.github.io/2048-Game-Anurag-Exponent/) to the web app.
+
 The project consists of several functions that perform different tasks to achieve the game logic.
 
 The game data is stored in a list-based, Y X Y grid, where Y is the number of rows and columns. Each element in the grid represents a tile on the game board.
