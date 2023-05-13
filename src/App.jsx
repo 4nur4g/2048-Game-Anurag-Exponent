@@ -2,7 +2,6 @@ import { createGrid } from './Utils/Helpers/grid.js';
 import { useState, useEffect, useRef } from 'react';
 import Tile from './components/Tile';
 import {
-  Card,
   Box,
   Button,
   Stack,
@@ -11,10 +10,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Typography,
   Paper,
 } from '@mui/material';
-// import { deepCopyArray } from '../../Assignments/2048-Anurag/src/utils/util';
 import GameBox from './components/GameBox.jsx';
 import styled from '@emotion/styled';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
@@ -57,8 +54,6 @@ function App() {
 
   useEffect(() => {
     initialize();
-    // eslint-disable-next-line
-    // resetGame()
   }, []);
 
   useEffect(() => {
