@@ -39,39 +39,26 @@ function App() {
   const [gameOver, setGameOver] = useState(false);
   const [gameWon, setGameWon] = useState(false);
   const [score, setScore] = useState(0);
-  const run = useRef(0);
   const zeroGrid = createGrid(gridDimen);
   const tileToWin = 2048;
 
   const [data, setData] = useState(zeroGrid);
 
-  const initialize = () => {
-    let newGrid = deepCopyArray(data);
+  useEffect(() => {
+    setGame();
+  }, [gridDimen]);
+
+  // Initialise/Reset game
+  const setGame = () => {
+    if (gameOver || gameWon || score) {
+      setGameOver(false);
+      setGameWon(false);
+      setScore(0);
+    }
+    let newGrid = createGrid(gridDimen);
     addNumber(newGrid);
     addNumber(newGrid);
     setData(newGrid);
-  };
-
-  useEffect(() => {
-    initialize();
-  }, []);
-
-  useEffect(() => {
-    if (run.current < 1) {
-      run.current += 1;
-    } else {
-      resetGame();
-    }
-  }, [gridDimen]);
-
-  // Reset
-  const resetGame = () => {
-    setGameOver(false);
-    setGameWon(false);
-    setScore(0);
-    addNumber(zeroGrid);
-    addNumber(zeroGrid);
-    setData(zeroGrid);
   };
 
   const handleKeyDown = (event) => {
@@ -410,10 +397,10 @@ function App() {
             background: '#FFF8D6',
           }}
         >
-          {gameWon && <GameWonOverlay buttonHandler={resetGame} />}
-          {gameOver && <GameOverOverlay buttonHandler={resetGame} />}
+          {gameWon && <GameWonOverlay buttonHandler={setGame} />}
+          {gameOver && <GameOverOverlay buttonHandler={setGame} />}
           <Stack direction='row' spacing={2} justifyContent='center'>
-            <ResetGame variant='contained' onClick={resetGame}>
+            <ResetGame variant='contained' onClick={setGame}>
               Reset Game
             </ResetGame>
 
