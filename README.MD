@@ -14,7 +14,7 @@ The game ends when either the player reaches the 2048 tile or there are no more 
 
 ## Main functions
 
-- **setGame**: This function initializes the game grid by placing two random numbers at two random locations. It is called when the game starts or when the reset or try again button is clicked.
+- **setGame**: This function initializes the game grid by placing two random numbers at two random locations. It is called when the game starts, grid dimension changes, or when the reset or try again button is clicked.
 - **handleKeyDown**: This function handles the keyboard events. It calls the appropriate functions when arrow keys are pressed.
 - **swipeLeft/swipeRight/swipeUp/swipeDown**: These functions handle the tile movement in each direction when an arrow key is pressed. They use a two-pointer algorithm to compare values in each row or column and perform some actions or calculations. They update the tile array state to create the effect of tile movement.
 - **addNumber**: This function finds the empty spots on the game board and adds either 2 or 4 at one of them randomly after every move.
