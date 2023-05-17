@@ -35,14 +35,13 @@ const LEFT_ARROW = 37;
 const RIGHT_ARROW = 39;
 
 function App() {
-  const [gridDimen, setGridDimen] = useState(4);
-  const [gameOver, setGameOver] = useState(false);
-  const [gameWon, setGameWon] = useState(false);
-  const [score, setScore] = useState(0);
-  const zeroGrid = createGrid(gridDimen);
+  const defaultGridDimen = 4;
+  const [gridDimen, setGridDimen] = useState(defaultGridDimen);
+  const [gameOver, setGameOver] = useState(null);
+  const [gameWon, setGameWon] = useState(null);
+  const [score, setScore] = useState(null);
+  const [data, setData] = useState(null);
   const tileToWin = 2048;
-
-  const [data, setData] = useState(zeroGrid);
 
   useEffect(() => {
     setGame();
@@ -50,11 +49,9 @@ function App() {
 
   // Initialise/Reset game
   const setGame = () => {
-    if (gameOver || gameWon || score) {
-      setGameOver(false);
-      setGameWon(false);
-      setScore(0);
-    }
+    setGameOver(false);
+    setGameWon(false);
+    setScore(0);
     let newGrid = createGrid(gridDimen);
     addNumber(newGrid);
     addNumber(newGrid);
@@ -378,72 +375,74 @@ function App() {
 
   return (
     <>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100vh',
-          position: 'relative',
-        }}
-      >
-        <Paper
-          elevation={6}
+      {data && (
+        <Box
           sx={{
-            padding: '10px',
-            borderRadius: '10px',
-            maxWidth: 'fit-content',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh',
             position: 'relative',
-            background: '#FFF8D6',
           }}
         >
-          {gameWon && <GameWonOverlay buttonHandler={setGame} />}
-          {gameOver && <GameOverOverlay buttonHandler={setGame} />}
-          <Stack direction='row' spacing={2} justifyContent='center'>
-            <ResetGame variant='contained' onClick={setGame}>
-              Reset Game
-            </ResetGame>
+          <Paper
+            elevation={6}
+            sx={{
+              padding: '10px',
+              borderRadius: '10px',
+              maxWidth: 'fit-content',
+              position: 'relative',
+              background: '#FFF8D6',
+            }}
+          >
+            {gameWon && <GameWonOverlay buttonHandler={setGame} />}
+            {gameOver && <GameOverOverlay buttonHandler={setGame} />}
+            <Stack direction='row' spacing={2} justifyContent='center'>
+              <ResetGame variant='contained' onClick={setGame}>
+                Reset Game
+              </ResetGame>
 
-            <Chip
-              sx={{
-                height: '36px',
-                fontSize: '26px',
-                color: '#645B52',
-                background: '#FBFFB1',
-              }}
-              icon={<SportsScoreIcon />}
-              label={`${score}`}
-              variant='outlined'
-            />
-            <FormControl
-              sx={{ m: 1, minWidth: 120, color: '#645B52' }}
-              size='small'
-            >
-              <InputLabel id='demo-select-small-label'>Dimension</InputLabel>
-              <Select
-                labelId='demo-select-small-label'
-                id='demo-select-small'
-                value={gridDimen}
-                label='Dimensions'
-                onChange={(event) => selectionHandler(event)}
+              <Chip
+                sx={{
+                  height: '36px',
+                  fontSize: '26px',
+                  color: '#645B52',
+                  background: '#FBFFB1',
+                }}
+                icon={<SportsScoreIcon />}
+                label={`${score}`}
+                variant='outlined'
+              />
+              <FormControl
+                sx={{ m: 1, minWidth: 120, color: '#645B52' }}
+                size='small'
               >
-                <MenuItem value={4}>4X4</MenuItem>
-                <MenuItem value={5}>5X5</MenuItem>
-                <MenuItem value={6}>6X6</MenuItem>
-              </Select>
-            </FormControl>
-          </Stack>
-          {data.map((row, oneIndex) => {
-            return (
-              <GameBox key={oneIndex}>
-                {row.map((digit, index) => (
-                  <Tile key={index}>{digit}</Tile>
-                ))}
-              </GameBox>
-            );
-          })}
-        </Paper>
-      </Box>
+                <InputLabel id='demo-select-small-label'>Dimension</InputLabel>
+                <Select
+                  labelId='demo-select-small-label'
+                  id='demo-select-small'
+                  value={gridDimen}
+                  label='Dimensions'
+                  onChange={(event) => selectionHandler(event)}
+                >
+                  <MenuItem value={4}>4X4</MenuItem>
+                  <MenuItem value={5}>5X5</MenuItem>
+                  <MenuItem value={6}>6X6</MenuItem>
+                </Select>
+              </FormControl>
+            </Stack>
+            {data.map((row, oneIndex) => {
+              return (
+                <GameBox key={oneIndex}>
+                  {row.map((digit, index) => (
+                    <Tile key={index}>{digit}</Tile>
+                  ))}
+                </GameBox>
+              );
+            })}
+          </Paper>
+        </Box>
+      )}
     </>
   );
 }
